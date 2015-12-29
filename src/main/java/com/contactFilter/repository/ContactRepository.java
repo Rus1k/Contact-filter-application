@@ -1,6 +1,6 @@
-package com.rasulov.repository;
+package com.contactFilter.repository;
 
-import com.rasulov.model.Contact;
+import com.contactFilter.model.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

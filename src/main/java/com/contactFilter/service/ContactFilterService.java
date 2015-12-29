@@ -1,6 +1,6 @@
-package com.rasulov.service;
+package com.contactFilter.service;
 
-import com.rasulov.model.Contact;
+import com.contactFilter.model.Contact;
 
 import java.util.List;
 

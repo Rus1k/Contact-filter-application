@@ -1,6 +1,6 @@
-package com.rasulov;
+package com.contactFilter;
 
-import com.rasulov.config.PersistenceConfiguration;
+import com.contactFilter.config.PersistenceConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;

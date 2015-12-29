@@ -1,4 +1,4 @@
-package com.rasulov.model;
+package com.contactFilter.model;
 
 
 import lombok.Data;

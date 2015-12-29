@@ -1,4 +1,4 @@
-package com.rasulov.exception;
+package com.contactFilter.exception;
 
 /**
  * Created by ruslan on 27.12.2015.

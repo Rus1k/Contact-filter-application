@@ -1,7 +1,7 @@
-package com.rasulov.service;
+package com.contactFilter.service;
 
-import com.rasulov.model.Contact;
-import com.rasulov.repository.ContactRepository;
+import com.contactFilter.model.Contact;
+import com.contactFilter.repository.ContactRepository;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.rasulov.web;
+package com.contactFilter.web;
 
-import com.rasulov.model.Contact;
-import com.rasulov.service.ContactFilterServiceImpl;
+import com.contactFilter.model.Contact;
+import com.contactFilter.service.ContactFilterServiceImpl;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

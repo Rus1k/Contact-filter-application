@@ -1,4 +1,4 @@
-package com.rasulov.config;
+package com.contactFilter.config;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,7 +12,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.rasulov.repository")
+@EnableJpaRepositories(basePackages = "com.contactFilter.repository")
 public class PersistenceConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
