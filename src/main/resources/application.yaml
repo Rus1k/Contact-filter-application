@@ -7,7 +7,7 @@ spring:
     username: homeWorkPart2
     password: root
   jpa:
-    hibernate.ddl-auto: create
+   # hibernate.ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -16,3 +16,4 @@ spring:
           use_second_level_cache: false
           use_structured_entities: true
         generate_statistics: false
+pageSize: 5

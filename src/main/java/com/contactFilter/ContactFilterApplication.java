@@ -8,10 +8,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication(exclude = {PersistenceConfiguration.class})
-public class HomeWorkApplication {
+public class ContactFilterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HomeWorkApplication.class, args);
+        SpringApplication.run(ContactFilterApplication.class, args);
     }
 
 }
