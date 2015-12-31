@@ -18,7 +18,7 @@ public class ContactFilterServiceImpl implements ContactFilterService {
     @Autowired
     private ContactRepository contactRepository;
     @Value(value = "${pageSize}")
-    private int pageSize;
+    private int pageSize = 100;
 
     @Override
     public Page<Contact> getContact(String filter, int pageNumber) {
