@@ -16,4 +16,4 @@ spring:
           use_second_level_cache: false
           use_structured_entities: true
         generate_statistics: false
-pageSize: 5
+pageSize: 100
