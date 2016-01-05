@@ -20,15 +20,16 @@ public class ContactFilterController {
     private ContactFilterServiceImpl contactFilterService;
 
 
-    @RequestMapping(value = "/findContact", method = RequestMethod.GET)
+    @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ResponseEntity<Page<Contact>> findContact(@RequestParam("nameFilter") String regex,
                                                      @RequestParam("pageNumber") int pageNumber) throws InvalidPageNumberException {
+        Page<Contact> contact = contactFilterService.getContact(regex, pageNumber);
         if (pageNumber < 0) {
             throw new InvalidPageNumberException();
         }
         log.info("Name filter = " + regex + "; page number = " + pageNumber);
-        log.info("Finishing result output: " + contactFilterService.getContact(regex, pageNumber));
-        return ResponseEntity.ok(contactFilterService.getContact(regex, pageNumber));
+        log.info("Finishing result output: " + contact);
+        return ResponseEntity.ok(contact);
     }
 
 }

@@ -1,5 +1,5 @@
 server:
-  contextPath: /homeWorkPart2
+  contextPath: /hello
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
@@ -16,4 +16,4 @@ spring:
           use_second_level_cache: false
           use_structured_entities: true
         generate_statistics: false
-pageSize: 100
+pageSize: 10

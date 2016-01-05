@@ -18,21 +18,21 @@ public class ContactFilterServiceImpl implements ContactFilterService {
     @Autowired
     private ContactRepository contactRepository;
     @Value(value = "${pageSize}")
-    private int pageSize = 100;
+    private int pageSize = 10;
 
     @Override
     public Page<Contact> getContact(String filter, int pageNumber) {
         Pageable pageable = new PageRequest(pageNumber, pageSize);
-        Page<Contact> page = contactRepository.findAll(pageable);
-        log.info("Page before filter: " + page.toString());
 
+        Page<Contact> page = contactRepository.findAll(pageable);
+        log.info("Page before filter: " + page);
         Iterator<Contact> iterator = page.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getName().matches(filter)) {
                 iterator.remove();
             }
         }
-        log.info("Page after filter: " + page.toString());
+        log.info("Page after filter: " + page);
         return page;
     }
 }
