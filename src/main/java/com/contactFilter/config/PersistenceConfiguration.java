@@ -19,9 +19,10 @@ public class PersistenceConfiguration {
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
+
     @Bean
     @Primary
-    public PlatformTransactionManager transactionManager (DataSource dataSource){
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setDataSource(dataSource);
         return jpaTransactionManager;

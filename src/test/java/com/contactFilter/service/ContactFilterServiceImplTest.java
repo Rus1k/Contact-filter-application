@@ -1,11 +1,9 @@
 package com.contactFilter.service;
 
-import com.contactFilter.exception.InvalidPageNumberException;
+
 import com.contactFilter.model.Contact;
 import com.contactFilter.repository.ContactRepository;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,7 +28,7 @@ public class ContactFilterServiceImplTest {
     @InjectMocks
     private ContactFilterServiceImpl contactFilterService;
 
-    private int pageSize=100;
+    private int pageSize = 100;
 
     private Contact din = Contact.builder().id(1).name("Din").build();
     private Contact leonard = Contact.builder().id(2).name("Leonard").build();
@@ -46,33 +44,53 @@ public class ContactFilterServiceImplTest {
         Page<Contact> page = new PageImpl<>(list);
         Pageable pageable = new PageRequest(0, pageSize);
         when(contactRepository.findAll(pageable)).thenReturn(page);
-        Page<Contact> actualResult = contactFilterService.getContact("Vadim", 0);
-        assertEquals(new PageImpl<>(Collections.emptyList()).getContent(), actualResult.getContent());
+        List<Contact> actualResult = contactFilterService.getContact("Vadim");
+        assertEquals(new PageImpl<>(Collections.emptyList()).getContent(), actualResult);
     }
 
     @Test
     public void testGetContactFilteredByFirstCharacter() throws Exception {
 
-        List<Contact> list = new ArrayList<Contact>(){{add(leonard); add(sheldon); add(tirion); add(din);}};
+        List<Contact> list = new ArrayList<Contact>() {{
+            add(leonard);
+            add(sheldon);
+            add(tirion);
+            add(din);
+        }};
 
-        List <Contact> expectedResult = new ArrayList<Contact>(){{add(leonard); add(sheldon);add(tirion);}};
+        List<Contact> expectedResult = new ArrayList<Contact>() {{
+            add(leonard);
+            add(sheldon);
+            add(tirion);
+        }};
 
         Page<Contact> page = new PageImpl<>(list);
         Pageable pageable = new PageRequest(0, pageSize);
         when(contactRepository.findAll(pageable)).thenReturn(page);
-        Page<Contact> actualResult = contactFilterService.getContact("\\b(D)\\S*", 0);
-        assertEquals(new PageImpl<>(expectedResult).getContent(), actualResult.getContent());
+        List<Contact> actualResult = contactFilterService.getContact("\\b(D)\\S*");
+        assertEquals(new PageImpl<>(expectedResult).getContent(), actualResult);
     }
 
     @Test
-    public void testGetContactFilteredByFullName() throws Exception{
-        List<Contact> list = new ArrayList<Contact>(){{add(din);add(leonard);add(sheldon);add(tirion);add(din1);}};
-        List<Contact> expectedResult = new ArrayList<Contact>(){{add(leonard);add(sheldon);add(tirion);}};
+    public void testGetContactFilteredByFullName() throws Exception {
+        List<Contact> list = new ArrayList<Contact>() {{
+            add(din);
+            add(leonard);
+            add(sheldon);
+            add(tirion);
+            add(din1);
+        }};
+        List<Contact> expectedResult = new ArrayList<Contact>() {{
+            add(leonard);
+            add(sheldon);
+            add(tirion);
+        }};
         Page<Contact> page = new PageImpl<>(list);
         Pageable pageable = new PageRequest(0, pageSize);
         when(contactRepository.findAll(pageable)).thenReturn(page);
-        Page<Contact> actualResult = contactFilterService.getContact("Din", 0);
-        assertEquals(new PageImpl<>(expectedResult).getContent(), actualResult.getContent());
+        List<Contact> actualResult = contactFilterService.getContact("Din");
+        assertEquals(new PageImpl<>(expectedResult).getContent(), actualResult);
     }
+
 
 }

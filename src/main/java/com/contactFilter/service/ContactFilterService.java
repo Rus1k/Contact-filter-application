@@ -1,8 +1,9 @@
 package com.contactFilter.service;
 
 import com.contactFilter.model.Contact;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface ContactFilterService {
-   Page<Contact> getContact(String regexText, int pageNumber);
+    List<Contact> getContact(String regexText);
 }

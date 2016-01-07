@@ -10,7 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Log
 @Service
@@ -19,20 +21,31 @@ public class ContactFilterServiceImpl implements ContactFilterService {
     private ContactRepository contactRepository;
     @Value(value = "${pageSize}")
     private int pageSize = 10;
+    List<Contact> list = null;
+    List<Contact> resultList = new ArrayList<>();
+
+    void filterList(String regex) {
+        log.info("__________ BEFORE FILTER __________ " + list);
+        list = list.stream().filter(s -> !s.getName().matches(regex)).collect(Collectors.toList());
+        log.info("__________ AFTER FILTER __________ " + list);
+        resultList.addAll(list);
+    }
 
     @Override
-    public Page<Contact> getContact(String filter, int pageNumber) {
-        Pageable pageable = new PageRequest(pageNumber, pageSize);
+    public List<Contact> getContact(String filter) {
+        long countContacts = contactRepository.count();
+        log.info("__________ QUANTITY ELEMENTS __________ :" + countContacts);
+        log.info("__________ REGEX TEXT __________ :" + filter);
+        log.info("__________ PAGE SIZE __________ " + pageSize);
 
-        Page<Contact> page = contactRepository.findAll(pageable);
-        log.info("Page before filter: " + page);
-        Iterator<Contact> iterator = page.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getName().matches(filter)) {
-                iterator.remove();
-            }
+        for (int i = 0; i < countContacts / pageSize; i++) {
+            Pageable pageable = new PageRequest(i, pageSize);
+            Page<Contact> page = contactRepository.findAll(pageable);
+            list = page.getContent();
+            filterList(filter);
         }
-        log.info("Page after filter: " + page);
-        return page;
+
+        log.info(" __________ RESULT __________ " + resultList);
+        return resultList;
     }
 }
