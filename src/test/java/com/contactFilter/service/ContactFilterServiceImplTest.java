@@ -92,5 +92,4 @@ public class ContactFilterServiceImplTest {
         assertEquals(new PageImpl<>(expectedResult).getContent(), actualResult);
     }
 
-
 }

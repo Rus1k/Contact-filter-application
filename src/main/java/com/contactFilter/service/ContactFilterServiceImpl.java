@@ -21,31 +21,42 @@ public class ContactFilterServiceImpl implements ContactFilterService {
     private ContactRepository contactRepository;
     @Value(value = "${pageSize}")
     private int pageSize = 10;
-    List<Contact> list = null;
-    List<Contact> resultList = new ArrayList<>();
-
-    void filterList(String regex) {
-        log.info("__________ BEFORE FILTER __________ " + list);
-        list = list.stream().filter(s -> !s.getName().matches(regex)).collect(Collectors.toList());
-        log.info("__________ AFTER FILTER __________ " + list);
-        resultList.addAll(list);
-    }
 
     @Override
     public List<Contact> getContact(String filter) {
-        long countContacts = contactRepository.count();
-        log.info("__________ QUANTITY ELEMENTS __________ :" + countContacts);
-        log.info("__________ REGEX TEXT __________ :" + filter);
-        log.info("__________ PAGE SIZE __________ " + pageSize);
+        List<Contact> resultList = new ArrayList<>();
 
-        for (int i = 0; i < countContacts / pageSize; i++) {
+        long countContacts = contactRepository.count();
+
+        long totalPages = getTotalPages(countContacts);
+
+        log.info("Total contacts: "
+                + countContacts + "; regex: "
+                + filter + "; page size: "
+                + pageSize + "; total pages : "
+                + totalPages + ";");
+
+        for (int i = 0; i < totalPages; i++) {
+
             Pageable pageable = new PageRequest(i, pageSize);
             Page<Contact> page = contactRepository.findAll(pageable);
-            list = page.getContent();
-            filterList(filter);
+            resultList.addAll(getFilteredList(filter, page.getContent()));
+            log.info("ResultList after filter " + i + " page :" + resultList);
         }
-
-        log.info(" __________ RESULT __________ " + resultList);
         return resultList;
+    }
+
+    private long getTotalPages(long countContacts) {
+        long totalPages;
+        if (countContacts % pageSize != 0) {
+            totalPages = countContacts / pageSize + 1;
+        } else {
+            totalPages = countContacts / pageSize;
+        }
+        return totalPages;
+    }
+
+    private List<Contact> getFilteredList(String filter, List<Contact> list) {
+        return list.stream().filter(s -> !s.getName().matches(filter)).collect(Collectors.toList());
     }
 }
